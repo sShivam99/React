@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 
-function useCurrencyInfo(currency='usd')
+function useCurrencyInfo(currency)
 {
     const [data,setData]=useState({usd:85});
 
@@ -9,6 +9,8 @@ function useCurrencyInfo(currency='usd')
        .then((resp)=>resp.json)
        .then((resp)=>setData(resp[currency]))
        .catch(()=> console.log("API request failed"));
+       
+       console.log(data);
        
     }, [currency]);
     return data;

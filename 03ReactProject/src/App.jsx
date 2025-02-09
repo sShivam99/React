@@ -9,20 +9,23 @@ function App() {
   const currencyInfo=useCurrencyInfo(selectCurrency);
   console.log(currencyInfo);
   const currencyOptions=Object.keys(currencyInfo);
+
+  const handleChange=(e)=>{
+    onCurrencyChange(e.target.value);
+  }
   console.log(currencyOptions);
 
 
   return (
     <>
       <select value={selectCurrency}
-      onChange={(e)=>onCurrencyChange(e.target.value)}>
+      onChange={handleChange}>
         {
           currencyOptions.map((currency)=>
             <option key={currency} value={currency}>{currency}</option>
           )
         }
-      </select>
-      
+      </select>      
     </>
   );
 }
