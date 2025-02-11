@@ -1,4 +1,5 @@
 import TodoForm from "./components/Todoform";
+import TodoItem from "./components/TodoItem";
 import { TodosProvider } from "./contexts";
 import {useEffect,useState} from 'react';
 
@@ -28,12 +29,14 @@ function App() {
   };
 
   useEffect(()=>{
-    const storedTodos = JSON.parse(localStorage.getItem('todos'));
-    setTodos(storedTodos)
+    const todos = JSON.parse(localStorage.getItem('todos'));
+    if (todos && todos.length > 0) {
+      setTodos(todos)
+    }
   },[])
 
   useEffect(()=>{
-    JSON.stringify(localStorage.setItem('todo',todos))
+    localStorage.setItem("todos", JSON.stringify(todos))
   },[todos])
 
   return (
@@ -46,11 +49,15 @@ function App() {
             Manage Your Todos
           </h1>
           <div className="mb-4">
-            {/* Todo form goes here */}
             <TodoForm/>
           </div>
           <div className="flex flex-wrap gap-y-3">
-            {/*Loop and Add TodoItem here */}
+            {todos.map((todo) => (
+                <div key={todo.id} className="w-full">
+                  {console.log(todo.id)}
+                  <TodoItem todo={todo} />
+                </div>
+              ))}            
           </div>
         </div>
       </div>
